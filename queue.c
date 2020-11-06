@@ -1,50 +1,85 @@
-﻿#include "queue.h"
+//очередь
+#include "queue.h"
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-void init_que(struct queue* q) //инициализация очереди
+
+
+//инициализация очереди
+void init_que(struct queue* q)
 {
 	q->quefirst = 1;
 	q->quelast = 0;
 	return;
 }
-void push(struct queue* q, char x) //вставка в очередь элемента
+
+//вставка в очередь элемента
+int push(struct queue* q, char x)//int n
 {
-	if (q->quelast <= N)
+	if (q->quelast < SIZE)
 	{
 		q->quelast++;
 		q->que[q->quelast] = x;
+		return 0;
 	}
 	else
-		printf("queue is empty\n");
-	return;
+	{
+		printf("queue is full\n");
+		return 1;
+	}
 }
-int is_empty(struct queue* q) //проверка очереди
+
+//проверка очереди
+int is_empty(struct queue* q)
 {
 	if (q->quelast < q->quefirst)
 		return 1;
-	else  return 0;
+	else  
+		return 0;
 }
-void print(struct queue* q) //вывод элементов
+
+//вывод элементов
+int print(struct queue* q)
 {
 	int h;
 	if (is_empty(q) == 1)
-	{
-		printf("queue is empty\n");
-		return;
-	}
+		return 1;
 	for (h = q->quefirst; h <= q->quelast; h++)
 		printf("%c ", q->que[h]);
-	return;
+	return 0;
 }
-int pop(struct queue* q)//удаление элементов
+
+//удаление элементов
+int pop(struct queue* q,char* b, char x)
 {
-	char x;
-	if (is_empty(q) == 1) {
-		printf("queue is empty\n");
-		return 0;
+	if (is_empty(q) == 1)
+		return 1;
+	else
+	{
+		x = q->que[q->quefirst];
+		*b = x;
+		q->quefirst++;
 	}
-	x = q->que[q->quefirst];
-	q->quefirst++;
-	return x;
+	return 0;
+}
+
+//проверяет на пробелы и энтеры и вводит символы в массив очереди
+char check(struct queue* q)
+{
+	char b;
+	int flag = 0;
+	while(flag==0)
+	{
+		scanf("%c", &b);
+		if (b == ' ' || b == '\n')
+			flag = 0;
+		else
+			flag = 1;
+	}
+	if (isalpha(b) == 0)
+	{
+		printf("element %c is no a letter\n",b);
+		return 1;
+	}
+	push(q, b);
+	return 0;
 }
