@@ -1,16 +1,27 @@
-#pragma once
-#define N 1
-struct queue //î÷åðåäü
+#ifndef protect
+#define SIZE 1
+//очередь
+struct queue
 {
-	char que[N];
+	char que[SIZE];
 	int quefirst, quelast;
 };
-void init_que(struct queue* q); //èíèöèàëèçàöèÿ î÷åðåäè
-void push(struct queue* q, char x); //âñòàâêà â î÷åðåäü ýëåìåíòà
-int is_empty(struct queue* q); //ïðîâåðêà î÷åðåäè
-void print(struct queue* q); //âûâîä ýëåìåíòîâ
-int pop(struct queue* q);//óäàëåíèå ýëåìåíòîâ
 
+//инициализация очереди
+void init_que(struct queue* q);
 
-//сделать по тесту на делет итд
-//структуру инициализировать 
+//вставка в очередь элемента
+int push(struct queue* q, char x); 
+
+//проверка очереди
+int is_empty(struct queue* q);
+
+//вывод элементов
+int print(struct queue* q); 
+
+//удаление элементов
+int pop(struct queue* q);
+
+//проверяет на пробелы и энтеры и вводит их в массив очереди
+char check(struct queue* q);
+#endif
